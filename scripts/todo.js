@@ -1,19 +1,32 @@
 var todoItems = [];
 
-function sendAlert(message) {
-  alert(message);
-}
-
 function addTodoItem() {
   var todo = document.getElementById("todo-item");
   var itemText = todo.value;
 
-  this.addToList(todo.value);
-  if (!this.todoItems.includes(itemText)) {
+  this.removeError();
+
+  if (this.itemExists(itemText)) {
     this.addToList(itemText);
+  } else {
+    this.displayError('Item exists')
   }
 
   todo.value = null
+}
+
+function removeError() {
+  var alert = document.getElementById("todo-error")
+  alert.classList.add("invisible");
+
+  alert.innerHTML = null;
+}
+
+function displayError(message) {
+  var alert = document.getElementById("todo-error")
+  alert.classList.remove("invisible");
+
+  alert.innerHTML = message;
 }
 
 function addToList(message) {
@@ -21,7 +34,11 @@ function addToList(message) {
   var item = document.createElement("li");
 
   this.todoItems.push(message);
-  console.log(this.todoItems);
 
   item.appendChild(document.createTextNode(message));
   list.appendChild(item);
+}
+
+function itemExists(message) {
+  return !this.todoItems.includes(message);
+}
