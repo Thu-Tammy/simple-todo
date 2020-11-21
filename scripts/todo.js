@@ -1,21 +1,27 @@
+var todoItems = [];
+
 function sendAlert(message) {
-alert(message);
+  alert(message);
 }
-sendAlert("Hello World!");
+
 function addTodoItem() {
-    var todo = document.getElementById("todo-item");
+  var todo = document.getElementById("todo-item");
+  var itemText = todo.value;
 
-    //this.sendAlert(todo.value);
+  this.addToList(todo.value);
+  if (!this.todoItems.includes(itemText)) {
+    this.addToList(itemText);
+  }
 
-    this.addToList(todo.value);
-
-    todo.value = null;
+  todo.value = null
 }
 
 function addToList(message) {
-    var list = document.getElementById("todo-list");
-    var item = document.createElement("li");
+  var list = document.getElementById("todo-list");
+  var item = document.createElement("li");
 
-    item.appendChild(document.createTextNode(message));
-    list.appendChild(item);
-}
+  this.todoItems.push(message);
+  console.log(this.todoItems);
+
+  item.appendChild(document.createTextNode(message));
+  list.appendChild(item);
