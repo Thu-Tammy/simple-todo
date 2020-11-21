@@ -6,7 +6,7 @@ function addTodoItem() {
 
   this.removeError();
 
-  if (this.itemExists(itemText)) {
+  if (!this.isExistingItem(itemText)) {
     this.addToList(itemText);
   } else {
     this.displayError('Item exists')
@@ -14,16 +14,20 @@ function addTodoItem() {
 
   todo.value = null
 }
+function getAlert() {
+  return document.getElementById("todo-error")
+}
 
 function removeError() {
-  var alert = document.getElementById("todo-error")
+  var alert = this.getAlert();
   alert.classList.add("invisible");
 
   alert.innerHTML = null;
 }
 
 function displayError(message) {
-  var alert = document.getElementById("todo-error")
+  var alert = this.getAlert();
+
   alert.classList.remove("invisible");
 
   alert.innerHTML = message;
@@ -39,6 +43,6 @@ function addToList(message) {
   list.appendChild(item);
 }
 
-function itemExists(message) {
-  return !this.todoItems.includes(message);
+function isExistingItem(message) {
+  return this.todoItems.includes(message); 
 }
